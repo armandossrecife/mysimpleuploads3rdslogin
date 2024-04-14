@@ -15,7 +15,7 @@ from flask_login import logout_user, LoginManager
 # True para limpar a instancia banco de dados atual
 # Obs: o valor deve ser True na 1a execucao da aplicacao
 #      para criar um banco limpo a estrutura limpa das tabelas
-DROP_DATA_BASE = False
+DROP_DATA_BASE = True
 
 # Carrega os valores das credenciais de acesso da AWS
 ACCESS_KEY_ID = os.getenv('ACCESS_KEY_ID')
