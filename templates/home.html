@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>Bem vindo a página MyFiles</h1>
+        <p>Upload, Downloads e Visualização de Arquivos do AWS S3</p>
+
+        <div>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <h2>{{ message }}</h2>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% endwith %}        
+        </div>
+
+        <div>
+          <a href="{{url_for('upload_page', id=id)}}">Upload File</a>
+          <br> 
+          <a href="{{url_for('lista_imagens_usuario', id=id)}}">Lista Imagens</a> 
+        </div>
+        <div>
+          <br>
+          <a href="{{url_for('logout')}}">[Logout]</a>      
+        </div>
+    </body>
+</html>

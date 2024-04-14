@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+boto3
+requests
+pymysql
+Flask-Login
+Flask-WTF
+email_validator

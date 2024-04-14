@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Downloads</title>
+</head>
+<body>
+    <h3>Arquivo do S3</h3>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          <h2>{{ message }}</h2>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}        
+    
+    <h1>Image from S3 Byte Content</h1>
+    <img src="{{ image_data_uri }}" alt="Image from S3">
+    <br>
+    <a href="/">[Home]</a>
+</body>
+</html>
