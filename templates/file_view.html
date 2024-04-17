@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Files</title>
+</head>
+<body>
+    <h3>Arquivo do S3</h3>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for message in messages %}
+          <h2>{{ message }}</h2>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}        
+    
+    <h1>File from S3 Byte Content</h1>
+    <!-- view image -->
+    {% if file_type=="image/jpeg" or file_type=="image/png" %}
+    <img src="{{ file_data_uri }}" alt="Image from S3">
+    {% endif%}
+    
+    {% if file_type=="audio/mp3" %}
+    <!-- play audio -->
+    <audio controls>
+      <source src="{{ file_data_uri }}" type="audio/mpeg">
+      Your browser does not support the audio tag.
+    </audio>
+    {% endif%}
+
+    {% if file_type=="video/mp4" %}
+    <!-- view video --> 
+    <video width="320" height="240" controls>
+      <source src="{{ file_data_uri }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    {% endif%}
+    <br>
+    <a href="/">[Home]</a>
+</body>
+</html>

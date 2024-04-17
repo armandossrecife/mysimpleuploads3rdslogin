@@ -15,7 +15,7 @@ from flask_login import logout_user, LoginManager
 # True para limpar a instancia banco de dados atual
 # Obs: o valor deve ser True na 1a execucao da aplicacao
 #      para criar um banco limpo a estrutura limpa das tabelas
-DROP_DATA_BASE = True
+DROP_DATA_BASE = False
 
 # Carrega os valores das credenciais de acesso da AWS
 ACCESS_KEY_ID = os.getenv('ACCESS_KEY_ID')
@@ -62,6 +62,9 @@ def unauthorized_callback():
 # Lista os recursos disponiveis da web app
 @app.route('/recursos')
 def hello():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     print('Bem vindo ao Flask!')        
     print('Lista de recursos disponíveis: ')
     output = []
@@ -72,17 +75,18 @@ def hello():
 
     for line in sorted(output):
         print(line)
-
-    return render_template('home.html')
+    nome_usuario = session['username']
+    id_usuario = session['user_id']
+    return render_template('home.html', id=id_usuario, nome_usuario=nome_usuario)
 
 # Rota para a pagina home
 @app.route("/")
 def home_page():
     if 'username' not in session:
         return redirect(url_for('login'))
-
+    nome_usuario = session['username']
     id_usuario = session['user_id']
-    return render_template("home.html", id=id_usuario)
+    return render_template("home.html", id=id_usuario, nome_usuario=nome_usuario)
 
 # Rota para a pagina de uploads
 @app.route("/usuarios/<int:id>/upload", methods=["GET", "POST"])
@@ -112,53 +116,69 @@ def upload_page(id):
     files = userDAO.list_all_files(id)
     return render_template("upload.html", files=files, id=id)
 
-@app.route("/usuarios/<int:id>/imagens", methods=["GET"])
-def lista_imagens_usuario(id):
+@app.route("/usuarios/<int:id>/files", methods=["GET"])
+def lista_files_usuario(id):
     if 'username' not in session or id != session['user_id']:
         return redirect(url_for('login'))
-
-    imagens_usuario = userDAO.list_all_files(id)
-    if not imagens_usuario: 
+    
+    files_usuario = userDAO.list_all_files(id)
+    nome_usuario=session["username"]
+    if not files_usuario: 
         flash('Nenhum arquivo cadastrado!')
-        return redirect(url_for('home_page'))
+        return redirect(url_for('home_page', id=id, nome_usuario=nome_usuario))
 
-    return render_template("imagens_usuario.html", imagens=imagens_usuario, id=id)
+    return render_template("files_usuario.html", files=files_usuario, id=id)
 
-# Recupera os bytes de uma imagem do bucket S3
-def get_image_bytes(image_url):
+# Recupera os bytes de um arquivo do bucket S3
+def get_file_bytes(image_url):
     response = requests.get(image_url)
     response.raise_for_status()  # Raise an exception for non-200 status codes
     return response.content
 
-# Rota que recupera os bytes da imagem e guarda em um formato base64
-# para exibir o conteudo na pagina image_form
-@app.route("/usuarios/<int:id>/myimage/<nome>")
-def show_image(id, nome):
-    if 'username' not in session or id != session['user_id']:
-        return redirect(url_for('login'))
-
-    image_url = s3_handle.BUCKET_PATH + "/" + nome
-    image_bytes = get_image_bytes(image_url)
-    extensao = utilidades.get_file_extension(nome)
-
-    encoded_bytes = base64.b64encode(image_bytes).decode('utf-8')  # Encode as base64 and decode for URI
-    image_data_uri = f"data:image/{extensao};base64,{encoded_bytes}"
-
-    return render_template("image_view.html", image_data_uri=image_data_uri)
-
 # Recupera os bytes da imagem e guarda em memoria
-@app.route("/usuarios/<int:id>/myimage2/<nome>")
-def show_image2(nome):
+@app.route("/usuarios/<int:id>/myimagebytes/<nome>")
+def show_image_by_bytes(nome):
     if 'username' not in session or id != session['user_id']:
         return redirect(url_for('login'))
 
     image_url = s3_handle.BUCKET_PATH + "/" + nome
-    image_bytes = get_image_bytes(image_url)
+    image_bytes = get_file_bytes(image_url)
 
     extensao = utilidades.get_file_extension(nome)
     my_mimetype = "image" + "/" + extensao
     
     return send_file(io.BytesIO(image_bytes), mimetype=my_mimetype)
+
+# Recupera os bytes do arquivo e guarda em memoria
+@app.route("/usuarios/<int:id>/myfilebytes/<nome>")
+def show_file_by_bytes(nome):
+    if 'username' not in session or id != session['user_id']:
+        return redirect(url_for('login'))
+
+    file_url = s3_handle.BUCKET_PATH + "/" + nome
+    file_bytes = get_file_bytes(file_url)
+
+    extensao = utilidades.get_file_extension(nome)
+    my_mimetype = utilidades.get_media_type(extensao)
+    
+    return send_file(io.BytesIO(file_bytes), mimetype=my_mimetype)
+
+# Rota que recupera os bytes do arquivo e guarda em um formato base64
+# para exibir o conteudo na pagina file_view
+@app.route("/usuarios/<int:id>/myfile/<nome>")
+def show_file(id, nome):
+    if 'username' not in session or id != session['user_id']:
+        return redirect(url_for('login'))
+
+    file_url = s3_handle.BUCKET_PATH + "/" + nome
+    file_bytes = get_file_bytes(file_url)
+    extensao = utilidades.get_file_extension(nome)
+
+    encoded_bytes = base64.b64encode(file_bytes).decode('utf-8')  # Encode as base64 and decode for URI
+    file_type = utilidades.get_media_type(extensao)
+    file_data_uri = f"data:{file_type};base64,{encoded_bytes}"
+
+    return render_template("file_view.html", file_data_uri=file_data_uri, file_type=file_type)
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -177,7 +197,7 @@ def login():
         flash(msg, category='success')
         session['username'] = username
         session['user_id'] = user.id
-        return redirect(url_for('home_page'))
+        return redirect(url_for('home_page', id=user.id, nome_usuario=username))
 
     if login_form.errors != {}: #If there are not errors from the validations
         for err_msg in login_form.errors.values():
