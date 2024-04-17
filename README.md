@@ -6,7 +6,13 @@ Aplicação web que faz uploads, views e downloads de arquivos em um bucket S3 i
 
 [Arquitetura de Referência](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/arquitetura.png)
 
-Telas: [Login]() [Home](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/home.png) [Upload](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/upload_2.png) [Lista Imagens]() [Downloads](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/downloads.png) 
+Telas: [Login](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/login.png) 
+[Home](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/home.png) 
+[Upload](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/uploads.png) 
+[Lista Arquivos](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/lista_arquivos.png) 
+[View Image](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/view_image.png) 
+[Play Audio](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/play_audio.png) 
+[Play Video](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/play_video.png)
 
 [Dependências](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/dependencias.md)
 
