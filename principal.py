@@ -31,7 +31,7 @@ SQLALCHEMY_DATABASE_URI_LOCAL = "sqlite:///users.db"
 # Instancia principal da aplicação
 app = Flask(__name__)
 app.secret_key = 'thisismysecretkeyfrommywebapplication'
-app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI_LOCAL
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI_AWS_RDS
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicializa a instância do banco de dados
