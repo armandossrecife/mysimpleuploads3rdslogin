@@ -3,8 +3,9 @@
         <title>Home</title>
     </head>
     <body>
-        <h1>Bem vindo a página MyFiles</h1>
-        <p>Upload, Downloads e Visualização de Arquivos do AWS S3</p>
+        <h1>My Multimedia Files</h1>
+        <p>Upload, Downloads e Visualização de Arquivos (imagens, audios e videos) do AWS S3</p>
+        <p>Usuario: {{nome_usuario}}</p>
 
         <div>
           {% with messages = get_flashed_messages() %}
@@ -21,7 +22,7 @@
         <div>
           <a href="{{url_for('upload_page', id=id)}}">Upload File</a>
           <br> 
-          <a href="{{url_for('lista_imagens_usuario', id=id)}}">Lista Imagens</a> 
+          <a href="{{url_for('lista_files_usuario', id=id)}}">Lista arquivos do usuario</a>
         </div>
         <div>
           <br>

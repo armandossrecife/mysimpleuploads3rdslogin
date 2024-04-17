@@ -19,10 +19,10 @@
       {% endwith %}        
     </div>
     
-    {% for file in imagens %}
+    {% for file in files %}
     <div>
         {{ file.original_filename }} - <a href="https://{{ file.bucket }}.s3.{{ file.region }}.amazonaws.com/{{ file.filename }}">download</a> 
-        - <a href="{{url_for('show_image', id=id, nome=file.filename)}}">View</a>
+        - <a href="{{url_for('show_file', id=id, nome=file.filename)}}">View</a>
     </div>
     {% endfor %}
     <br>

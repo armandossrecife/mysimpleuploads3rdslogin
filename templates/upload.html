@@ -20,12 +20,12 @@
     </div>
 
     <div>
-      <form method="POST" action="{{ url_for('upload_page', id=id)}}" enctype="multipart/form-data" style="margin-bottom: 30px;">
+      <form method="POST" action="{{ url_for('upload_page', id=id)}}" enctype="multipart/form-data"">
           <input type="file" name="file-to-save" />
           <button>Upload</button>
       </form>
     </div>
-    
+    <br>
     <div>
       {% for file in files %}
       <div>
