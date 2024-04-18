@@ -2,7 +2,7 @@
 
 Aplicação web que faz uploads, views e downloads de arquivos em um bucket S3 integrado a um banco no AWS RDS. Além disso, este protótipo faz o controle de autenticação e autorização da aplicação. 
 
-[Apresentação do Protótipo](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/Topicos%20Engenharia%20de%20Software%20-%20App%20Web%20com%20S3%20e%20RDS.pdf)
+[Apresentação do Protótipo](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/Topicos%20Engenharia%20de%20Software%20-%20App%20Web%20com%20S3%2C%20RDS%20e%20Login%20de%20usuario.pdf)
 
 [Arquitetura de Referência](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/arquitetura.png)
 
