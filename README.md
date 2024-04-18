@@ -22,6 +22,8 @@ Telas: [Login](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/
 
 [Execução da aplicação em uma instância EC2](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/passos_ec2.md)
 
+[Passos para configurar um balanceador de carga](https://github.com/armandossrecife/mysimpleuploads3rdslogin/blob/main/docs/passos_lb_manual.md)
+
 ## 1. No servidor da aplicação, crie um ambiente virtual para a sua aplicação
 
 Dentro do diretório principal (mysimpleuploads3rdslogin)
