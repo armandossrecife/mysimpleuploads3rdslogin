@@ -3,7 +3,7 @@
 ## 1. No AWS EC2 crie uma instância Linux Ubuntu 22.04
 
 - VPC default
-- Grupode de segurança default
+- Grupo de segurança default
 - Atualize o repositório de pacotes linux
 ```bash
 sudo apt update
@@ -47,7 +47,7 @@ Configuração para guardar a sessão do usuário (Session persistence)
 http {
     upstream mywebapp {
     	ip_hash;
-        server IP1:5000; # Instancia 1 do WebApp 
+        server IP1:5000; # Instancia 1 do WebApp
         server IP2:5000; # Instancia 2 do WebApp
     }
 
